@@ -50,21 +50,23 @@ export default function Hero() {
          Bukan penyihir, cuma mahasiswa yang hobi ngubah <span className="text-blue-400 font-semibold">bug</span>  jadi  <span className="text-pink-400 font-semibold">fitur</span> dan ngubah <span className="text-red-400 font-semibold">jam tidur</span> jadi kode.
         </p>
 
-        <div className="mt-12 flex gap-6 justify-center flex-col sm:flex-row animate-fadeInUp" style={{ animationDelay: '0.4s' }}>
-          <Link 
-            href="/project/" 
-            className="px-8 py-4 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 font-bold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-red-600/50 active:scale-95"
-          >
-            Lihat Projek Saya
-          </Link>
-          
-          <Link 
-            href="/about/" 
-            className="px-8 py-4 border-2 border-blue-600 text-blue-400 hover:bg-blue-600/10 hover:text-blue-300 font-bold rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95"
-          >
-            Tentang Saya
-          </Link>
-        </div>
+       <div className="mt-12 flex gap-6 justify-center flex-col sm:flex-row animate-fadeInUp" style={{ animationDelay: '0.4s' }}>
+  {/* Tombol: Lihat Projek Saya (Kuning ke Oranye + Border) */}
+  <Link 
+    href="/project" 
+    className="px-8 py-4 bg-gradient-to-r from-pink-500 to-red-700 border-2 border-yellow-700 text-black font-bold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-orange-500/50 active:scale-95 text-center"
+  >
+    Lihat Projek Saya
+  </Link>
+  
+  {/* Tombol: Tentang Saya (Oranye ke Kuning) */}
+  <Link 
+    href="/about" 
+    className="px-8 py-4 bg-gradient-to-r from-red-700 to-pink-400 border-2 border-yellow-500 text-black font-bold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-yellow-500/50 active:scale-95 text-center"
+  >
+    Tentang Saya
+  </Link>
+</div>
       </div>
     </section>
   );
