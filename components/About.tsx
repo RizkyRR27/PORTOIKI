@@ -1,3 +1,7 @@
+"use client";
+
+import Link from 'next/link';
+
 export default function About() {
   const hardSkills = ["Web Programming", "Java Programming", "UI/UX Design", "BPMN", "SQL", "ELK Stack", "Automation testing", "Manual Testing"];
   const software = ["Bizagi", "Figma", "VS Code", "ERDPlus", "draw.io", "ELK", "Notion", "Cisco Packet Tracer", "Power BI"];
@@ -18,12 +22,22 @@ export default function About() {
              <p className="text-slate-400">2023 - Sekarang</p>
              <p className="font-bold mt-4">SMA Muhammadiyah 9 Bekasi</p>
              <p className="text-slate-400">2020 - 2023</p>
+              <div className="mt-10">
+              <Link href="/about/more" className="mt-4 px-4 py-2 text-sm font-semibold bg-gradient-to-r from-blue-600 to-green-500 hover:from-blue-700 hover:to-green-600 text-white rounded-lg transition-transform transform hover:scale-105">
+               More About Me
+              </Link>
+              </div>
           </div>
         </div>
-        <div className="h-87.5 w-full md:w-[350px] aspect-[3/4] bg-slate-900 border-2 border-blue-600 rounded-2xl flex items-center justify-center animate-slideInRight hover:border-red-600 transition-colors duration-500 group">
-          <img src="/images/w.jpeg" className="rounded-2xl text-slate-500 transform group-hover:scale-105 transition-transform duration-500"></img>
+        <div className="h-87.5 w-full md:w-[350px] aspect-[3/4] bg-slate-900 border-2 border-blue-600 rounded-2xl flex flex-col items-center justify-center gap-4 animate-slideInRight hover:border-red-600 transition-colors duration-500 group">
+          <img src="/images/w.jpeg" className="rounded-2xl text-slate-500 transform group-hover:scale-105 transition-transform duration-500" alt="profile" />
+        
         </div>
+         
+
       </div>
+
+    
 
       <div className="space-y-8 animate-fadeInUp">
         <h2 className="text-4xl font-bold border-l-4 border-blue-600 pl-4">Keahlian</h2>
