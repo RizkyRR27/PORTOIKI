@@ -7,7 +7,7 @@ export default function AboutPage() {
     
       <About />
 
-        <Breadcrumb />
+      <Breadcrumb />
     </div>
   );
 }

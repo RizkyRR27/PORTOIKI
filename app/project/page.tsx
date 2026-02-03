@@ -34,10 +34,10 @@ export default function ProjectPage() {
 
   return (
     <div className="pt-32 px-10 max-w-6xl mx-auto pb-20">
-      <h1 className="text-5xl font-bold mb-10">Projek Portofolio</h1>
+      <h1 className="text-5xl font-bold mb-10 animate-fadeInUp">Projek Portofolio</h1>
       <div className="grid md:grid-cols-2 gap-8">
-        {projects.map((p) => (
-          <div key={p.title} className="flex flex-col p-8 bg-slate-900/50 border border-white/10 rounded-2xl hover:border-red-600 transition-all group">
+        {projects.map((p, index) => (
+          <div key={p.title} className="flex flex-col p-8 bg-slate-900/50 border border-white/10 rounded-2xl hover:border-red-600 transition-all group animate-fadeInUp" style={{ animationDelay: `${index * 0.1}s` }}>
             <div className="flex-grow">
               <h3 className="text-2xl font-bold mb-2 group-hover:text-red-500 transition-colors">{p.title}</h3>
               <p className="text-blue-500 text-sm mb-4 font-semibold">{p.date}</p>
@@ -46,7 +46,7 @@ export default function ProjectPage() {
               </p>
               <div className="flex flex-wrap gap-2 mb-8">
                 {p.tech.map((t) => (
-                  <span key={t} className="px-3 py-1 bg-white/5 border border-white/10 rounded text-xs text-slate-300">
+                  <span key={t} className="px-3 py-1 bg-white/5 border border-white/10 rounded text-xs text-slate-300 hover:bg-white/10 transition-colors duration-300">
                     {t}
                   </span>
                 ))}
@@ -58,7 +58,7 @@ export default function ProjectPage() {
               href={p.link} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="w-full text-center py-3 bg-red-600/10 border border-red-600/30 text-red-500 font-bold rounded-lg hover:bg-red-600 hover:text-white transition-all"
+              className="w-full text-center py-3 bg-red-600/10 border border-red-600/30 text-red-500 font-bold rounded-lg hover:bg-red-600 hover:text-white transition-all duration-300 transform hover:scale-105"
             >
               Lihat Projek →
             </a>
