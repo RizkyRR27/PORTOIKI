@@ -18,8 +18,8 @@ export default function About() {
              <p className="text-slate-400">2020 - 2023</p>
           </div>
         </div>
-        <div className="w-full md:w-[350px] aspect-[3/4] bg-slate-900 border-2 border-blue-600 rounded-2xl flex items-center justify-center">
-          <span className="text-slate-500">Foto: /public/images/profil.jpg</span>
+        <div className="h-87.5 w-full md:w-[350px] aspect-[3/4] bg-slate-900 border-2 border-blue-600 rounded-2xl flex items-center justify-center">
+          <img src="/images/w.jpeg"className="rounded-2xl text-slate-500"></img>
         </div>
       </div>
 
