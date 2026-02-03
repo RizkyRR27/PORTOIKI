@@ -6,7 +6,7 @@ export default function Stats() {
   const [counters, setCounters] = useState([
     { label: 'Projects Completed', value: 0, target: 4, suffix: '+' },
     { label: 'Internship Experience', value: 0, target: 2, suffix: '+' },
-    { label: 'Skills Mastered', value: 0, target: 17, suffix: '+' },
+    { label: 'Skills Mastered', value: 0, target: 13, suffix: '+' },
   ]);
 
   useEffect(() => {

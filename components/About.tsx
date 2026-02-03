@@ -3,7 +3,7 @@
 import Link from 'next/link';
 
 export default function About() {
-  const hardSkills = ["Web Programming", "Java Programming", "UI/UX Design", "BPMN", "SQL", "ELK Stack", "Automation testing", "Manual Testing"];
+  const hardSkills = ["Web Programming", "UI/UX Design", "BPMN", "SQL", "ELK Stack", "Automation testing", "Manual Testing"];
   const software = ["Bizagi", "Figma", "VS Code", "ERDPlus", "draw.io", "ELK", "Notion", "Cisco Packet Tracer", "Power BI"];
 
   return (
@@ -29,8 +29,8 @@ export default function About() {
               </div>
           </div>
         </div>
-        <div className="h-87.5 w-full md:w-[350px] aspect-[3/4] bg-slate-900 border-2 border-blue-600 rounded-2xl flex flex-col items-center justify-center gap-4 animate-slideInRight hover:border-red-600 transition-colors duration-500 group">
-          <img src="/images/w.jpeg" className="rounded-2xl text-slate-500 transform group-hover:scale-105 transition-transform duration-500" alt="profile" />
+        <div className="w-full md:w-[350px] aspect-[3/4] bg-slate-900 border-2 border-blue-600 rounded-2xl flex flex-col items-center justify-center gap-4 animate-slideInRight hover:border-red-600 transition-colors duration-500 group">
+          <img src="/images/ww.jpeg" className="rounded-2xl text-slate-500 transform group-hover:scale-105 transition-transform duration-500" alt="profile" />
         
         </div>
          

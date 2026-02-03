@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import HeroBackground from './HeroBackground';
 
 export default function Hero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -20,20 +21,23 @@ export default function Hero() {
 
   return (
     <section className="min-h-screen flex flex-col items-center justify-center text-center px-4 relative overflow-hidden pt-20 pb-20">
+      {/* Background Carousel */}
+      <HeroBackground />
+
       {/* Interactive Background Blobs */}
       <div 
-        className="absolute top-0 -left-20 w-80 h-80 bg-blue-600/10 rounded-full blur-[120px] animate-pulse-slow transition-transform duration-500"
+        className="absolute top-0 -left-20 w-80 h-80 bg-blue-600/10 rounded-full blur-[120px] animate-pulse-slow transition-transform duration-500 z-0"
         style={{ transform: `translate(${mousePosition.x}px, ${mousePosition.y}px)` }}
       />
       <div 
-        className="absolute bottom-0 -right-20 w-80 h-80 bg-red-600/10 rounded-full blur-[120px] animate-pulse-slow transition-transform duration-500"
+        className="absolute bottom-0 -right-20 w-80 h-80 bg-red-600/10 rounded-full blur-[120px] animate-pulse-slow transition-transform duration-500 z-0"
         style={{ transform: `translate(-${mousePosition.x}px, -${mousePosition.y}px)` }}
       />
 
       <div className="relative z-10 w-full max-w-5xl mx-auto">
-        <div className="mb-6 inline-block px-4 py-2 border border-blue-500/30 rounded-full bg-blue-500/10 animate-fadeInDown">
+        {/* <div className="mb-6 inline-block px-4 py-2 border border-blue-500/30 rounded-full bg-blue-500/10 animate-fadeInDown">
           <p className="text-sm font-semibold text-blue-400">Welcome to my portfolio</p>
-        </div>
+        </div> */}
 
         <h1 className="text-[48px] md:text-[64px] font-extrabold leading-tight tracking-tighter mb-6 animate-fadeInUp">
           Selamat Datang Para Penggemar <br />
@@ -43,7 +47,7 @@ export default function Hero() {
         </h1>
 
         <p className="text-[24px] md:text-[32px] text-slate-400 max-w-4xl mx-auto font-light leading-relaxed animate-fadeInUp" style={{ animationDelay: '0.2s' }}>
-          Membangun solusi digital melalui <span className="text-white font-semibold">kode</span>, <span className="text-blue-400 font-semibold">kreativitas</span>, dan <span className="text-red-400 font-semibold">inovasi</span> teknologi terbaru.
+         Bukan penyihir, cuma mahasiswa yang hobi ngubah <span className="text-blue-400 font-semibold">bug</span>  jadi  <span className="text-pink-400 font-semibold">fitur</span> dan ngubah <span className="text-red-400 font-semibold">jam tidur</span> jadi kode.
         </p>
 
         <div className="mt-12 flex gap-6 justify-center flex-col sm:flex-row animate-fadeInUp" style={{ animationDelay: '0.4s' }}>
