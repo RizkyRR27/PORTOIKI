@@ -11,9 +11,7 @@ export default function HeroBackground() {
     '/images/BG/2.jpg',
     '/images/BG/3.jpg',
     '/images/BG/4.jpg',
-    '/images/BG/5.jpg',
-    '/images/BG/6.jpg',
-   
+ 
   ];
 
   // Auto-rotate foto setiap 4 detik
