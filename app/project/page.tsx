@@ -21,7 +21,10 @@ export default function ProjectPage() {
       date: "Feb - Juni 2025", 
       desc: "Berkontribusi dalam pengembangan fitur jadwal ujian dan verifikasi surat pernyataan admin, serta pembuatan desain UI menggunakan Figma.", 
       tech: ["Web Development", "Figma", "UI/UX"],
-      link: "https://github.com/Fallujahrama/PBL_Toeic"
+      links: [
+        { label: "Live Demo", url: "https://toeicky.onrender.com/" },
+        { label: "Github", url: "https://github.com/Fallujahrama/PBL_Toeic" }
+      ]
     },
      { 
       title: "Human Resource Information System", 
@@ -54,14 +57,30 @@ export default function ProjectPage() {
             </div>
             
             {/* Tombol Link Projek */}
-            <a 
-              href={p.link} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="w-full text-center py-3 bg-red-600/10 border border-red-600/30 text-red-500 font-bold rounded-lg hover:bg-red-600 hover:text-white transition-all duration-300 transform hover:scale-105"
-            >
-              Lihat Projek →
-            </a>
+            {Array.isArray(p.links) ? (
+              <div className="flex gap-3">
+                {p.links.map((l) => (
+                  <a 
+                    key={l.url}
+                    href={l.url} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex-1 text-center py-3 bg-red-600/10 border border-red-600/30 text-red-500 font-bold rounded-lg hover:bg-red-600 hover:text-white transition-all duration-300 transform hover:scale-105"
+                  >
+                    {l.label} →
+                  </a>
+                ))}
+              </div>
+            ) : (
+              <a 
+                href={p.link} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-full text-center py-3 bg-red-600/10 border border-red-600/30 text-red-500 font-bold rounded-lg hover:bg-red-600 hover:text-white transition-all duration-300 transform hover:scale-105"
+              >
+                Lihat Projek →
+              </a>
+            )}
           </div>
         ))}
       </div>

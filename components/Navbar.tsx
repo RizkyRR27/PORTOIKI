@@ -24,6 +24,10 @@ export default function Navbar() {
           <span>Hubungin Gue</span>
           <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-red-500 group-hover:w-full transition-all duration-300"></span>
         </Link>
+        {/* <Link href="/Sertif "relative hover:text-red-500 transition-colors duration-300 group">
+          <span>Sertifikat
+          <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-red-500 group-hover:w-full transition-all duration-300"></span>
+        </Link> */}
       </div>
     </nav>
   );

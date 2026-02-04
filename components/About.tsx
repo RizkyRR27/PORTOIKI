@@ -74,7 +74,7 @@ export default function About() {
       </div>
 
       <div className="space-y-5 animate-fadeInUp">
-         <h2 className="text-4xl font-bold border-l-4 border-red-600 pl-4">Pengalaman Magang</h2>
+         <h2 className="text-4xl font-bold border-l-4 border-red-600 pl-4">Pengalaman</h2>
          <span className="text-3xl text-blue-500 font-semibold hover:text-blue-400 transition-colors duration-300 block">PT FAN Integrasi Teknologi</span>
           <div className="">
              <p className="font-bold">Kota Bekasi</p>
@@ -83,15 +83,14 @@ export default function About() {
           <div className="space-y-1 p-4 rounded-lg border border-white/10 hover:border-green-500/30 transition-colors duration-300">
           <p><span className="text-xl text-green-500 font-semibold">System Admin</span></p>
           <p className="text-xl text-slate-300 leading-relaxed">
-         memahami kegunaan ELK(Elasticsearch, Logstash, Kibana) serta dapat mengimplementasikannya untuk kebutuhan pemantauan, analisis
+        memahami kegunaan ELK(Elasticsearch, Logstash, Kibana) serta dapat mengimplementasikannya untuk kebutuhan pemantauan, analisis
           log, dan visualisasi data secara real-time.  
          </p>
-     </div>
-
+     </div>                                                     
         <div className="space-y-6">
          <span className="text-3xl text-blue-500 font-semibold hover:text-blue-400 transition-colors duration-300 block">PT Timedoor Indonesia</span>
           <div className="">
-             <p className="font-bold">Kota Bekasi</p>
+             <p className="font-bold">BALI</p>
              <p className="text-slate-400">Januari 2026 - Sekarang</p>
           </div>
           <div className="space-y-1 p-4 rounded-lg border border-white/10 hover:border-green-500/30 transition-colors duration-300">
