@@ -54,7 +54,7 @@ export default function Hero() {
   {/* Tombol: Lihat Projek Saya (Kuning ke Oranye + Border) */}
   <Link 
     href="/project" 
-    className="px-8 py-4 bg-gradient-to-r from-pink-500 to-red-700 border-2 border-yellow-700 text-black font-bold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-orange-500/50 active:scale-95 text-center"
+    className="px-8 py-4 bg-gradient-to-r from-blue-500 to-red-700 border-2 border-yellow-700 text-black font-bold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-orange-500/50 active:scale-95 text-center"
   >
     Lihat Projek Saya
   </Link>
@@ -62,7 +62,7 @@ export default function Hero() {
   {/* Tombol: Tentang Saya (Oranye ke Kuning) */}
   <Link 
     href="/about" 
-    className="px-8 py-4 bg-gradient-to-r from-red-700 to-pink-400 border-2 border-yellow-500 text-black font-bold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-yellow-500/50 active:scale-95 text-center"
+    className="px-8 py-4 bg-gradient-to-r from-red-700 to-blue-400 border-2 border-yellow-500 text-black font-bold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-yellow-500/50 active:scale-95 text-center"
   >
     Tentang Saya
   </Link>
