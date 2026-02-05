@@ -7,7 +7,7 @@ export default function ContactPage() {
     { name: 'LinkedIn', val: 'Rizky Roza Rahim', url: 'https://www.linkedin.com/in/rizky-roza-801a6a287', color: 'hover:border-blue-500' },
     { name: 'Instagram', val: '@rizkyroza._', url: 'https://instagram.com/rizkyroza._', color: 'hover:border-pink-500' },
     { name: 'TikTok', val: 'bandar', url: 'https://www.tiktok.com/@whosiap4', color: 'hover:border-purple-500' },
-    { name: 'Facebook', val: 'rizky.roza', url: 'https://www.facebook.com/rizky.roza', color: 'hover:border-blue-700' },
+    { name: 'Facebook', val: 'rizky.roza', url: 'https://www.facebook.com/rizky.roza.5/', color: 'hover:border-blue-700' },
     { name: 'Email', val: 'rizkyroza2005@gmail.com', url: 'mailto:rizkyroza2005@gmail.com', color: 'hover:border-red-600' },
   ];
 
