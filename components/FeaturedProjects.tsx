@@ -35,9 +35,8 @@ export default function FeaturedProjects() {
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="text-center mb-16 animate-fadeInUp">
           <h2 className="text-5xl font-extrabold mb-4">Featured Projects</h2>
-          <p className="text-xl text-slate-400">Beberapa proyek terbaik yang pernah saya kerjakan</p>
+          <p className="text-xl text-blue-600">Beberapa proyek terbaik yang pernah saya kerjakan</p>
         </div>
-
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {featured.map((project, index) => (
             <a
@@ -56,7 +55,7 @@ export default function FeaturedProjects() {
                   <h3 className="text-2xl font-bold mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-blue-500 group-hover:to-red-500 group-hover:bg-clip-text transition-all duration-300">
                     {project.title}
                   </h3>
-                  <p className="text-slate-300 group-hover:text-white transition-colors duration-300">
+                  <p className="text-gray-800 group-hover:text-gray-900 transition-colors duration-300">
                     {project.desc}
                   </p>
                 </div>

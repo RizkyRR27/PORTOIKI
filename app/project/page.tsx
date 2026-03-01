@@ -36,20 +36,20 @@ export default function ProjectPage() {
   ];
 
   return (
-    <div className="pt-32 px-10 max-w-6xl mx-auto pb-20">
-      <h1 className="text-5xl font-bold mb-10 animate-fadeInUp">Projek Portofolio</h1>
+    <div className="pt-32 px-10 max-w-6xl mx-auto pb-20 bg-orange-50/50">
+      <h1 className="text-5xl font-bold mb-10 animate-fadeInUp text-gray-800">Projek Portofolio</h1>
       <div className="grid md:grid-cols-2 gap-8">
         {projects.map((p, index) => (
-          <div key={p.title} className="flex flex-col p-8 bg-slate-900/50 border border-white/10 rounded-2xl hover:border-red-600 transition-all group animate-fadeInUp" style={{ animationDelay: `${index * 0.1}s` }}>
+          <div key={p.title} className="flex flex-col p-8 bg-orange-50/70 border border-orange-200 rounded-2xl hover:border-orange-300 transition-all group animate-fadeInUp" style={{ animationDelay: `${index * 0.1}s` }}>
             <div className="flex-grow">
-              <h3 className="text-2xl font-bold mb-2 group-hover:text-red-500 transition-colors">{p.title}</h3>
-              <p className="text-blue-500 text-sm mb-4 font-semibold">{p.date}</p>
-              <p className="text-slate-400 mb-6 leading-relaxed">
+              <h3 className="text-2xl font-bold mb-2 group-hover:text-blue-500 transition-colors">{p.title}</h3>
+              <p className="text-pink-500 text-sm mb-4 font-semibold">{p.date}</p>
+              <p className="text-gray-700 mb-6 leading-relaxed">
                 {p.desc}
               </p>
               <div className="flex flex-wrap gap-2 mb-8">
                 {p.tech.map((t) => (
-                  <span key={t} className="px-3 py-1 bg-white/5 border border-white/10 rounded text-xs text-slate-300 hover:bg-white/10 transition-colors duration-300">
+                  <span key={t} className="px-3 py-1 bg-pink-100 border border-pink-200 rounded text-xs text-blue-600 hover:bg-pink-200 transition-colors duration-300">
                     {t}
                   </span>
                 ))}
@@ -65,7 +65,7 @@ export default function ProjectPage() {
                     href={l.url} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="flex-1 text-center py-3 bg-red-600/10 border border-red-600/30 text-red-500 font-bold rounded-lg hover:bg-red-600 hover:text-white transition-all duration-300 transform hover:scale-105"
+                    className="flex-1 text-center py-3 bg-blue-500/10 border border-blue-500/30 text-blue-500 font-bold rounded-lg hover:bg-blue-500 hover:text-white transition-all duration-300 transform hover:scale-105"
                   >
                     {l.label} →
                   </a>

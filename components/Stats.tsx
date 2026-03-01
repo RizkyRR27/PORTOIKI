@@ -27,19 +27,19 @@ export default function Stats() {
   }, []);
 
   return (
-    <section className="py-20 px-10 bg-gradient-to-b from-transparent via-blue-900/5 to-transparent">
+    <section className="py-20 px-10 bg-pink-50">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
         {counters.map((stat, index) => (
           <div 
             key={stat.label}
-            className="p-8 rounded-2xl bg-gradient-to-br from-white/5 to-white/0 border border-white/10 backdrop-blur-sm hover:border-blue-500/30 transition-all duration-500 hover:bg-gradient-to-br hover:from-blue-900/20 hover:to-white/5 group animate-fadeInUp"
+            className="p-8 rounded-2xl bg-white shadow-lg border border-blue-200 hover:border-pink-300 transition-all duration-500 group animate-fadeInUp"
             style={{ animationDelay: `${index * 0.15}s` }}
           >
             <div className="text-center">
-              <div className="text-5xl font-extrabold bg-gradient-to-r from-blue-500 to-red-500 bg-clip-text text-transparent mb-2">
+              <div className="text-5xl font-extrabold bg-gradient-to-r from-pink-500 to-blue-500 bg-clip-text text-transparent mb-2">
                 {Math.floor(stat.value)}{stat.suffix}
               </div>
-              <p className="text-slate-400 group-hover:text-white transition-colors">{stat.label}</p>
+              <p className="text-gray-700 group-hover:text-gray-900 transition-colors">{stat.label}</p>
             </div>
           </div>
         ))}

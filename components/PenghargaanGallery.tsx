@@ -41,7 +41,7 @@ export default function PenghargaanGallery() {
           <button
             key={it.id}
             onClick={() => openItem(it)}
-            className="text-left p-6 bg-slate-900/40 border border-white/5 rounded-2xl hover:scale-105 transition transform"
+            className="text-left p-6 bg-pink-50/80 border border-pink-200 rounded-2xl hover:scale-105 transition transform"
             aria-label={`Buka ${it.title}`}
           >
             <h3 className="font-semibold mb-4">{it.title}</h3>
@@ -49,7 +49,7 @@ export default function PenghargaanGallery() {
               {it.type === 'image' ? (
                 <img src={it.url} alt={it.title} className="w-full h-40 object-cover rounded-md border border-white/5" />
               ) : (
-                <div className="w-full h-40 flex items-center justify-center bg-black/20 rounded-md border border-white/5 text-slate-300">
+                <div className="w-full h-40 flex items-center justify-center bg-blue-100 rounded-md border border-pink-200 text-gray-600">
                   <span className="text-sm">📄 PDF</span>
                 </div>
               )}
@@ -59,13 +59,13 @@ export default function PenghargaanGallery() {
       </div>
 
       {open && active && (
-        <div className="fixed inset-0 z-60 flex items-center justify-center bg-black/70 p-6">
-          <div className="max-w-5xl w-full max-h-[90vh] bg-slate-900 rounded-lg overflow-hidden">
-            <div className="flex justify-between items-center p-3 border-b border-white/5">
+        <div className="fixed inset-0 z-60 flex items-center justify-center bg-pink-100/70 p-6">
+          <div className="max-w-5xl w-full max-h-[90vh] bg-white rounded-lg overflow-hidden">
+            <div className="flex justify-between items-center p-3 border-b border-pink-200">
               <h4 className="font-semibold">{active.title}</h4>
-              <button onClick={closeModal} className="px-3 py-1 border rounded hover:bg-white/5">Tutup</button>
+              <button onClick={closeModal} className="px-3 py-1 border rounded hover:bg-pink-50">Tutup</button>
             </div>
-            <div className="p-4 h-[80vh] overflow-auto bg-black">
+            <div className="p-4 h-[80vh] overflow-auto bg-pink-50">
               {active.type === 'image' ? (
                 <img src={active.url} alt={active.title} className="w-full h-auto mx-auto" />
               ) : (
