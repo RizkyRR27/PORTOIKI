@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react';
 
 export default function Stats() {
   const [counters, setCounters] = useState([
-    { label: 'Projects Completed', value: 0, target: 4, suffix: '+' },
-    { label: 'Internship Experience', value: 0, target: 2, suffix: '+' },
-    { label: 'Skills Mastered', value: 0, target: 13, suffix: '+' },
+    { label: 'Projects Completed', value: 0, target: 4, suffix: '+', bg: 'bg-[#00f0ff]' },
+    { label: 'Internship Experience', value: 0, target: 2, suffix: '+', bg: 'bg-[#ff3c88]' },
+    { label: 'Skills Mastered', value: 0, target: 13, suffix: '+', bg: 'bg-[#ffe600]' },
   ]);
 
   useEffect(() => {
@@ -27,20 +27,20 @@ export default function Stats() {
   }, []);
 
   return (
-    <section className="py-20 px-10 bg-pink-50">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+    <section className="py-20 px-10 relative z-10">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
         {counters.map((stat, index) => (
           <div 
             key={stat.label}
-            className="p-8 rounded-2xl bg-white shadow-lg border border-blue-200 hover:border-pink-300 transition-all duration-500 group animate-fadeInUp"
+            className={`brutal-card p-8 text-center group animate-fadeInUp ${stat.bg} ${index % 2 === 0 ? 'transform rotate-1' : 'transform -rotate-1'}`}
             style={{ animationDelay: `${index * 0.15}s` }}
           >
-            <div className="text-center">
-              <div className="text-5xl font-extrabold bg-gradient-to-r from-pink-500 to-blue-500 bg-clip-text text-transparent mb-2">
-                {Math.floor(stat.value)}{stat.suffix}
-              </div>
-              <p className="text-gray-700 group-hover:text-gray-900 transition-colors">{stat.label}</p>
+            <div className={`text-6xl font-black mb-4 ${stat.bg === 'bg-[#ff3c88]' ? 'text-white' : 'text-black'} group-hover:scale-110 transition-transform duration-200`}>
+              {Math.floor(stat.value)}{stat.suffix}
             </div>
+            <p className={`font-bold uppercase tracking-widest border-t-4 border-black pt-4 ${stat.bg === 'bg-[#ff3c88]' ? 'text-white' : 'text-black'}`}>
+              {stat.label}
+            </p>
           </div>
         ))}
       </div>
