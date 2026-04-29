@@ -14,7 +14,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet" />
       </head>
-      <body className="bg-[#fdfbf7] text-black antialiased relative min-h-screen">
+      <body suppressHydrationWarning className="bg-[#fdfbf7] text-black antialiased relative min-h-screen">
         <Navbar />
         {children}
       </body>
