@@ -1,22 +1,37 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  color-scheme: light;
-  --bg-base: #fdfbf7;
-  --text-main: #000000;
-  --neo-yellow: #ffe600;
-  --neo-pink: #ff3c88;
-  --neo-cyan: #00f0ff;
-  --neo-green: #00ff66;
-  --neo-purple: #c250ff;
-  --neo-orange: #ff5e00;
-  --font-sans: 'Inter', sans-serif;
+  color-scheme: dark;
+  --bg-base: #141414;
+  --text-main: #ffffff;
+  --text-muted: #808080;
+  --border-color: #333333;
+  --grid-color: rgba(255, 255, 255, 0.05);
+
+  /* Netflix accents */
+  --netflix-red: #E50914;
+  --netflix-red-hover: #F40612;
+  --netflix-dark: #141414;
+  --netflix-light: #E5E5E5;
+
+  --font-sans: 'Inter', var(--font-plus-jakarta), sans-serif;
+  --font-display: 'Helvetica Neue', var(--font-outfit), 'Inter', sans-serif;
+}
+
+.dark {
+  color-scheme: dark;
+  --bg-base: #141414;
+  --text-main: #ffffff;
+  --border-color: #333333;
 }
 
 @theme inline {
   --color-background: var(--bg-base);
   --color-foreground: var(--text-main);
   --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
 }
 
 body {
@@ -25,66 +40,183 @@ body {
   font-family: var(--font-sans);
   line-height: 1.6;
   overflow-x: hidden;
-  position: relative;
-  /* Grid paper pattern */
-  background-image: 
-    linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
-  background-size: 20px 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Brutal Card */
+/* Netflix Card */
 .brutal-card {
-  border: 4px solid #000000;
-  box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
-  transition: all 0.2s ease-in-out;
+  border-radius: 4px;
+  background-color: #181818;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
 }
 
 .brutal-card:hover {
-  transform: translate(-4px, -4px);
-  box-shadow: 12px 12px 0px 0px rgba(0, 0, 0, 1);
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+  z-index: 10;
 }
 
-/* Brutal Button */
+/* Netflix Button */
 .brutal-btn {
-  display: inline-block;
-  border: 4px solid #000000;
-  box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 1);
-  font-weight: 900;
-  text-transform: uppercase;
-  transition: all 0.1s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  font-weight: 600;
+  padding: 0.5rem 1.5rem;
+  transition: all 0.2s ease;
   cursor: pointer;
+  background-color: var(--netflix-red);
+  color: white;
+  border: none;
 }
 
 .brutal-btn:hover {
-  transform: translate(2px, 2px);
-  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+  background-color: var(--netflix-red-hover);
+  transform: scale(1.05);
 }
 
 .brutal-btn:active {
-  transform: translate(6px, 6px);
-  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 1);
+  transform: scale(0.95);
 }
 
 /* Text Selection */
 ::selection {
-  background: var(--neo-pink);
+  background: var(--netflix-red);
   color: white;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-base);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Marquee Animation */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: inline-block;
+  animation: marquee 12s linear infinite;
 }
 
 /* General Animations */
 .animate-fadeInUp {
-  animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
 .animate-fadeInDown {
-  animation: fadeInDown 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fadeInDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-zoomIn {
+  animation: zoomIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
 @keyframes fadeInDown {
-  from { opacity: 0; transform: translateY(-30px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Glitch Text Effect */
+.glitch-text {
+  position: relative;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-base);
+}
+
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -2px 0 var(--neo-cyan);
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+  left: -2px;
+  text-shadow: -2px 0 var(--neo-pink), 0 2px var(--neo-cyan);
+  clip: rect(85px, 450px, 140px, 0);
+  animation: glitch-anim2 5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+  0% {
+    clip: rect(15px, 9999px, 66px, 0);
+  }
+
+  100% {
+    clip: rect(34px, 9999px, 55px, 0);
+  }
+}
+
+@keyframes glitch-anim2 {
+  0% {
+    clip: rect(70px, 9999px, 105px, 0);
+  }
+
+  100% {
+    clip: rect(12px, 9999px, 85px, 0);
+  }
 }

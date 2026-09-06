@@ -1,44 +1,198 @@
 'use client';
 
 import Link from 'next/link';
+import ImageTrail from './ImageTrail';
+import { useEffect, useState, useRef } from 'react';
+import { ArrowRight, FileText, MapPin, Briefcase, Zap, Terminal, Info } from 'lucide-react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export default function Hero() {
+  const [typedText, setTypedText] = useState('');
+  const fullText = "Selamat Datang di Portofolio Iky, Senang rasanya anda berkunjung di website saya.";
+
+  useEffect(() => {
+    let index = 0;
+    const interval = setInterval(() => {
+      setTypedText(fullText.substring(0, index));
+      index++;
+      if (index > fullText.length) {
+        clearInterval(interval);
+      }
+    }, 45);
+    return () => clearInterval(interval);
+  }, []);
+
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    // Initial Load Animations
+    gsap.from('.available-sticker', {
+      scale: 0,
+      rotation: -30,
+      opacity: 0,
+      duration: 0.8,
+      ease: 'back.out(1.5)',
+    });
+
+    gsap.from('.hero-title-part', {
+      y: 80,
+      opacity: 0,
+      duration: 1,
+      stagger: 0.25,
+      ease: 'power4.out',
+      delay: 0.2,
+    });
+
+    gsap.from('.hero-terminal', {
+      y: 60,
+      scale: 0.96,
+      opacity: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay: 0.6,
+    });
+
+    gsap.from('.hero-badge', {
+      y: 20,
+      opacity: 0,
+      duration: 0.6,
+      stagger: 0.1,
+      ease: 'power2.out',
+      delay: 0.8,
+    });
+
+    gsap.from('.hero-cta-btn', {
+      y: 20,
+      opacity: 0,
+      duration: 0.6,
+      stagger: 0.15,
+      ease: 'power2.out',
+      delay: 1.1,
+    });
+
+    // Parallax Scroll Animations for Floating Shapes
+    gsap.to('.parallax-shape-1', {
+      scrollTrigger: {
+        trigger: '.hero-section',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1,
+      },
+      y: -180,
+      rotation: 120,
+      ease: 'none',
+    });
+
+    gsap.to('.parallax-shape-2', {
+      scrollTrigger: {
+        trigger: '.hero-section',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1,
+      },
+      y: -240,
+      x: 60,
+      rotation: -180,
+      ease: 'none',
+    });
+
+    gsap.to('.parallax-shape-3', {
+      scrollTrigger: {
+        trigger: '.hero-section',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1,
+      },
+      y: 180,
+      rotation: 90,
+      ease: 'none',
+    });
+  }, { scope: containerRef });
+
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center text-center px-4 relative overflow-hidden pt-20 pb-20">
-      
-      <div className="relative z-10 w-full max-w-5xl mx-auto">
-        
-        <div className="mb-8 inline-block px-4 py-2 bg-[#00ff66] border-4 border-black shadow-[4px_4px_0px_rgba(0,0,0,1)] text-black text-sm font-bold tracking-widest uppercase animate-fadeInUp transform -rotate-2">
-          Available for Hire
+    <section ref={containerRef} className="hero-section min-h-[90vh] flex flex-row items-center px-6 md:px-16 relative overflow-hidden bg-[#141414] text-white">
+      {/* Background Image/Gradient Overlay */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-gradient-to-r from-[#141414] via-[#141414]/80 to-transparent z-10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent z-10" />
+        {/* Placeholder for a cinematic background, we just use a dark subtle pattern/color for now since no image is provided */}
+        <div className="absolute inset-0 bg-neutral-900 opacity-50" />
+      </div>
+
+      {/* Left: Hero Content */}
+      <div className="relative z-20 w-full max-w-xl flex flex-col items-start mt-20 flex-shrink-0">
+        {/* Top Badge like "N SERIES" */}
+        <div className="hero-badge flex items-center gap-2 mb-4 font-sans font-bold text-sm tracking-widest text-gray-300">
+          <span className="text-[#E50914] text-xl">R</span> ORIGINAL PORTFOLIO
         </div>
-        
-        <h1 className="text-6xl md:text-8xl font-black leading-none tracking-tighter mb-8 animate-fadeInUp flex flex-col gap-4">
-          <span className="block text-4xl md:text-5xl bg-[#ffe600] border-4 border-black px-6 py-2 w-fit mx-auto shadow-[6px_6px_0px_rgba(0,0,0,1)] transform rotate-1">
-            Hello, I'm
-          </span>
-          <span className="bg-[#00f0ff] border-4 border-black px-8 py-4 w-fit mx-auto shadow-[8px_8px_0px_rgba(0,0,0,1)] transform -rotate-1 text-black">
-            RIZKY ROZA RAHIM
-          </span>
+
+        {/* Main Header */}
+        <h1 className="hero-title-part text-5xl sm:text-7xl md:text-8xl font-black tracking-tight leading-none text-left mb-4 font-sans drop-shadow-lg">
+          RIZKY ROZA RAHIM
         </h1>
 
-        <p className="text-xl md:text-2xl text-black bg-white border-4 border-black p-6 max-w-3xl mx-auto font-bold leading-relaxed animate-fadeInUp shadow-[6px_6px_0px_rgba(0,0,0,1)]" style={{ animationDelay: '0.2s' }}>
-          Bukan penyihir, cuma mahasiswa yang hobi ngubah <span className="bg-[#ff3c88] text-white px-2">bug</span> jadi <span className="bg-[#ffe600] px-2">fitur</span> dan ngubah jam tidur jadi kode.
+        {/* Sub-Hero Description */}
+        <p className="hero-terminal text-lg md:text-xl font-medium leading-relaxed text-gray-200 max-w-2xl mb-8 font-sans drop-shadow-md">
+          {typedText}
+          <span className="animate-pulse bg-[#E50914] text-transparent inline-block w-1.5 h-5 ml-1 align-middle">|</span>
         </p>
 
-       <div className="mt-12 flex gap-6 justify-center flex-col sm:flex-row animate-fadeInUp" style={{ animationDelay: '0.4s' }}>
-          <Link 
-            href="/project" 
-            className="brutal-btn px-8 py-4 bg-[#ff3c88] text-white text-center text-lg"
+        {/* Info Badges (Like Movie tags: 2026 | Developer | Action) */}
+        <div className="hero-badge flex flex-wrap gap-3 items-center mb-8 font-sans font-bold text-sm text-gray-400">
+          <span className="flex items-center gap-1"><MapPin className="w-4 h-4" /> Jakarta, Bekasi, Malang, Bali</span>
+          <span className="flex items-center gap-1"><Zap className="w-4 h-4" /> D4 Sistem Informasi Bisnis</span>
+        </div>
+
+        {/* Call to Actions */}
+        <div className="flex gap-4 font-sans">
+          <Link
+            href="/project"
+            className="hero-cta-btn px-6 py-2.5 bg-white text-black rounded-md text-lg font-bold flex items-center gap-2 hover:bg-neutral-300 transition-colors"
           >
-            Lihat Projek Saya
+            <div className="w-0 h-0 border-t-[8px] border-t-transparent border-l-[12px] border-l-black border-b-[8px] border-b-transparent ml-1"></div>
+            Lihat Projek
           </Link>
-          
-          <Link 
-            href="/about" 
-            className="brutal-btn px-8 py-4 bg-white text-black text-center text-lg"
+
+          <Link
+            href="/about"
+            className="hero-cta-btn px-6 py-2.5 bg-gray-500/50 text-white rounded-md text-lg font-bold flex items-center gap-2 hover:bg-gray-500/70 transition-colors backdrop-blur-sm"
           >
+            <Info className="w-6 h-6" />
             Tentang Saya
           </Link>
+        </div>
+      </div>
+
+      {/* Right: ImageTrail Interactive Area */}
+      <div className="relative z-20 flex-1 hidden md:flex items-center justify-center h-[90vh] ml-8">
+        <div className="w-full h-full" style={{ position: 'relative', overflow: 'hidden' }}>
+          <ImageTrail
+            items={[
+              '/images/1.jpg',
+              '/images/2.jpg',
+              '/images/3.jpg',
+              '/images/4.jpg',
+              '/images/5.jpg',
+              'https://picsum.photos/id/67/300/300',
+              'https://picsum.photos/id/96/300/300',
+              'https://picsum.photos/id/103/300/300',
+              'https://picsum.photos/id/106/300/300',
+              'https://picsum.photos/id/119/300/300',
+            ]}
+            variant={1}
+          />
+          {/* Hint overlay */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <p className="text-gray-500 text-sm font-sans tracking-widest uppercase select-none opacity-60">
+              ✦ Gerakkan kursor di sini
+            </p>
+          </div>
         </div>
       </div>
     </section>
