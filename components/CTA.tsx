@@ -16,32 +16,38 @@ export default function CTA() {
 
   useGSAP(() => {
     // Reveal main card
-    gsap.from('.cta-main-card', {
-      scrollTrigger: {
-        trigger: '.cta-main-card',
-        start: 'top 85%',
-        toggleActions: 'play none none none',
-      },
-      y: 80,
-      scale: 0.96,
-      opacity: 0,
-      duration: 1,
-      ease: 'back.out(1.2)',
-    });
+    gsap.fromTo('.cta-main-card',
+      { y: 80, scale: 0.96, opacity: 0 },
+      {
+        scrollTrigger: {
+          trigger: '.cta-main-card',
+          start: 'top 95%',
+          toggleActions: 'play none none none',
+        },
+        y: 0,
+        scale: 1,
+        opacity: 1,
+        duration: 1,
+        ease: 'back.out(1.2)',
+      }
+    );
 
     // Stagger reveal social buttons
-    gsap.from('.cta-social-btn', {
-      scrollTrigger: {
-        trigger: '.cta-social-btn-container',
-        start: 'top 92%',
-        toggleActions: 'play none none none',
-      },
-      y: 30,
-      opacity: 0,
-      duration: 0.6,
-      stagger: 0.15,
-      ease: 'power2.out',
-    });
+    gsap.fromTo('.cta-social-btn',
+      { y: 20, opacity: 0 },
+      {
+        scrollTrigger: {
+          trigger: '.cta-social-btn-container',
+          start: 'top 100%',
+          toggleActions: 'play none none none',
+        },
+        y: 0,
+        opacity: 1,
+        duration: 0.5,
+        stagger: 0.1,
+        ease: 'power2.out',
+      }
+    );
   }, { scope: containerRef });
 
   return (
@@ -84,11 +90,11 @@ export default function CTA() {
           <p className="text-gray-400 font-bold mb-4 text-sm uppercase tracking-wide">
             Find me on:
           </p>
-          <div className="cta-social-btn-container flex gap-3 sm:gap-4 justify-center flex-wrap">
+          <div className="cta-social-btn-container flex gap-3 sm:gap-4 justify-center flex-wrap" style={{ opacity: 1 }}>
             {[
-              { name: 'GitHub', icon: Github, url: 'https://github.com/arielreza' },
-              { name: 'LinkedIn', icon: Linkedin, url: 'https://www.linkedin.com/in/rizky-roza-801a6a287' },
-              { name: 'Instagram', icon: Instagram, url: 'https://instagram.com/rizkyroza._' },
+              { name: 'GitHub', icon: Github, url: 'https://github.com/RizkyRR27' },
+              { name: 'LinkedIn', icon: Linkedin, url: 'www.linkedin.com/in/rizkyrozarahim270505' },
+              { name: 'Instagram', icon: Instagram, url: 'https://instagram.com/rizkyroza.r_' },
               { name: 'Email', icon: Mail, url: 'mailto:rizkyroza2005@gmail.com' }
             ].map(platform => {
               const Icon = platform.icon;
@@ -98,7 +104,7 @@ export default function CTA() {
                   href={platform.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="cta-social-btn flex items-center gap-2 px-4 py-2 bg-transparent hover:bg-[#333333] border border-[#333333] rounded text-gray-300 hover:text-white transition-colors"
+                  className="cta-social-btn flex items-center gap-2 px-4 py-2 bg-transparent hover:bg-[#333333] border border-[#555555] rounded text-gray-300 hover:text-white transition-colors"
                 >
                   <Icon className="w-4 h-4" />
                   <span className="font-medium text-sm">{platform.name}</span>
