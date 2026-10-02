@@ -1,87 +1,109 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { Sun, Moon, Menu, X, Home, MessageSquare, Award, User, Code } from 'lucide-react';
-// import { useTheme } from './ThemeProvider';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
+
+const navLinks = [
+  { href: '/', label: 'Beranda' },
+  { href: '/about', label: 'Tentang' },
+  { href: '/project', label: 'Projek' },
+  { href: '/Penghargaan', label: 'Penghargaan' },
+];
 
 export default function Navbar() {
-  const [isVisible, setIsVisible] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
-    setIsVisible(true);
-    const handleScroll = () => {
-      if (window.scrollY > 0) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setIsScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const navLinks = [
-    { href: '/', label: 'Beranda', icon: Home },
-    { href: '/about', label: 'Tentang', icon: User },
-    { href: '/project', label: 'Projek', icon: Code },
-    { href: '/Penghargaan', label: 'Penghargaan', icon: Award },
-    { href: '/HUBi', label: 'Hubungi', icon: MessageSquare },
-  ];
-
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-colors duration-300 p-4 ${isScrolled ? 'bg-[#141414]' : 'bg-gradient-to-b from-black/80 to-transparent'} ${isVisible ? 'animate-fadeInDown' : 'opacity-0'}`}>
-      <div className="max-w-6xl mx-auto flex justify-between items-center">
-        {/* Logo */}
-        <Link href="/" className="cursor-target text-3xl font-black font-sans tracking-tighter text-[#E50914] hover:text-[#F40612] transition-colors duration-200 flex items-center gap-1">
-          RRR
+    <nav
+      className={`fixed top-0 inset-x-0 z-50 transition-colors duration-200 border-b ${
+        isScrolled || isOpen
+          ? 'bg-[#111112]/90 backdrop-blur-md border-[#27272a]'
+          : 'bg-transparent border-transparent'
+      }`}
+    >
+      <div className="max-w-[1600px] mx-auto px-5 md:px-10 h-16 flex items-center justify-between">
+        <Link href="/" aria-label="Home" className="flex items-center" onClick={() => setIsOpen(false)}>
+          <Image
+            src="/iki_logo.svg"
+            alt="Iki logo"
+            width={52}
+            height={40}
+            unoptimized
+            priority
+            className="h-10 w-auto rounded-md transition-transform duration-200 hover:scale-105"
+          />
         </Link>
 
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-6 font-sans font-medium text-sm">
+        <div className="hidden md:flex items-center gap-8 mono text-xs uppercase tracking-widest">
           {navLinks.map((link) => {
-            const isActive = pathname === link.href;
-            const Icon = link.icon;
+            const active = pathname === link.href;
             return (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`cursor-target flex items-center gap-2 transition-colors duration-150 tracking-wide ${isActive
-                  ? 'text-white font-bold'
-                  : 'text-gray-300 hover:text-gray-400'
-                  }`}
+                className={`relative py-1 transition-colors duration-150 hover:text-[#D2FF00] ${
+                  active ? 'text-[#D2FF00]' : 'text-zinc-300'
+                }`}
               >
                 {link.label}
+                {active && <span className="absolute -bottom-0.5 left-0 h-px w-full bg-[#D2FF00]" />}
               </Link>
             );
           })}
+          <Link
+            href="/HUBi"
+            className="group inline-flex items-center gap-1.5 rounded-full bg-[#D2FF00] px-5 py-2.5 font-bold text-black transition-all duration-200 hover:bg-white hover:shadow-[0_0_30px_-4px_#D2FF00]"
+          >
+            Get in touch
+            <ArrowUpRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </Link>
         </div>
+
+        <button
+          type="button"
+          aria-label={isOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={isOpen}
+          onClick={() => setIsOpen((v) => !v)}
+          className="md:hidden grid h-10 w-10 place-items-center rounded-full border border-[#27272a] text-white"
+        >
+          {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
       </div>
 
-      {/* Mobile Drawer */}
       {isOpen && (
-        <div className="md:hidden mt-4 bg-[#141414] p-4 font-sans">
-          <div className="flex flex-col gap-4">
-            {navLinks.map((link) => {
-              const isActive = pathname === link.href;
-              const Icon = link.icon;
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setIsOpen(false)}
-                  className={`cursor-target flex items-center gap-3 p-2 font-medium text-sm ${isActive ? 'text-white font-bold' : 'text-gray-300 hover:text-gray-400'
-                    }`}
-                >
-                  <Icon className="w-5 h-5" />
-                  {link.label}
-                </Link>
-              );
-            })}
+        <div className="md:hidden border-t border-[#27272a] bg-[#111112] px-5 pb-6 pt-4">
+          <div className="flex flex-col">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setIsOpen(false)}
+                className={`display text-4xl py-3 border-b border-[#27272a] ${
+                  pathname === link.href ? 'text-[#D2FF00]' : 'text-white'
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
+            <Link
+              href="/HUBi"
+              onClick={() => setIsOpen(false)}
+              className="mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-[#D2FF00] px-6 py-3 mono text-sm font-bold uppercase tracking-widest text-black"
+            >
+              Get in touch <ArrowUpRight className="h-4 w-4" />
+            </Link>
           </div>
         </div>
       )}

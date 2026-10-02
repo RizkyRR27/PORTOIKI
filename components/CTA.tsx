@@ -1,120 +1,36 @@
-'use client';
-
-import { useRef } from 'react';
 import Link from 'next/link';
-import { ArrowRight, Github, Linkedin, Instagram, Mail } from 'lucide-react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useGSAP } from '@gsap/react';
+import { ArrowUpRight, Github, Instagram, Linkedin, Mail } from 'lucide-react';
+import Reveal from '@/components/Reveal';
 
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
+const socials = [
+  { name: 'GitHub', icon: Github, url: 'https://github.com/RizkyRR27' },
+  { name: 'LinkedIn', icon: Linkedin, url: 'https://www.linkedin.com/in/rizkyrozarahim270505' },
+  { name: 'Instagram', icon: Instagram, url: 'https://instagram.com/rizkyroza.r_' },
+];
 
 export default function CTA() {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useGSAP(() => {
-    // Reveal main card
-    gsap.fromTo('.cta-main-card',
-      { y: 80, scale: 0.96, opacity: 0 },
-      {
-        scrollTrigger: {
-          trigger: '.cta-main-card',
-          start: 'top 95%',
-          toggleActions: 'play none none none',
-        },
-        y: 0,
-        scale: 1,
-        opacity: 1,
-        duration: 1,
-        ease: 'back.out(1.2)',
-      }
-    );
-
-    // Stagger reveal social buttons
-    gsap.fromTo('.cta-social-btn',
-      { y: 20, opacity: 0 },
-      {
-        scrollTrigger: {
-          trigger: '.cta-social-btn-container',
-          start: 'top 100%',
-          toggleActions: 'play none none none',
-        },
-        y: 0,
-        opacity: 1,
-        duration: 0.5,
-        stagger: 0.1,
-        ease: 'power2.out',
-      }
-    );
-  }, { scope: containerRef });
-
   return (
-    <section ref={containerRef} className="relative py-16 px-6 z-10 font-sans bg-[#141414] text-white">
-      <div className="cta-main-card max-w-4xl mx-auto text-center p-8 md:p-12 rounded-md bg-[#181818] shadow-2xl relative overflow-hidden">
-
-        {/* Ambient Glow */}
-        <div className="absolute top-0 -left-20 w-72 h-72 bg-[#E50914]/10 rounded-full blur-[100px] pointer-events-none" />
-        <div className="absolute bottom-0 -right-20 w-72 h-72 bg-[#E50914]/10 rounded-full blur-[100px] pointer-events-none" />
-
-        {/* Headline */}
-        <h2 className="text-3xl md:text-5xl font-bold mb-4 text-white">
-          Ready to <span className="text-[#E50914]">Collaborate?</span>
-        </h2>
-
-        {/* Paragraph Description */}
-        <p className="text-base md:text-lg text-gray-300 max-w-2xl mx-auto font-medium leading-relaxed mb-8">
-          Let's create something extraordinary together. Contact me for discussions, inquiries, or new project collaborations.
-        </p>
-
-        {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <Link
-            href="/HUBi"
-            className="w-full sm:w-auto px-8 py-3 bg-[#E50914] hover:bg-[#F40612] text-white font-bold rounded flex items-center justify-center gap-2 transition-colors"
-          >
-            Contact Me Now <ArrowRight className="w-5 h-5" />
-          </Link>
-
-          <Link
-            href="/about"
-            className="w-full sm:w-auto px-8 py-3 bg-[#333333] hover:bg-[#404040] text-white font-bold rounded flex items-center justify-center gap-2 transition-colors"
-          >
-            Learn More
-          </Link>
+    <footer id="contact" className="relative overflow-hidden px-5 pb-7 pt-20 md:px-10 md:pt-32">
+      <div className="mx-auto max-w-[1600px]">
+        <div className="flex flex-col justify-between gap-10 border-b border-[#27272a] pb-20 md:flex-row md:items-end md:pb-28">
+          <div>
+            <Reveal dir="fade"><p className="mono mb-5 text-xs uppercase tracking-[0.2em] text-[#D2FF00]">04 / Open channel</p></Reveal>
+            <h2 className="display text-[clamp(4rem,11vw,10rem)]">
+              <Reveal dir="mask" delay={80}><span className="block">Let&apos;s build</span></Reveal>
+              <Reveal dir="mask" delay={200}><span className="block text-[#D2FF00]">something fast.</span></Reveal>
+            </h2>
+          </div>
+          <Reveal delay={350} className="max-w-xs"><p className="mb-6 text-sm leading-7 text-zinc-500">Have a system to improve or an idea to put on track? Send a signal.</p><a href="mailto:rizkyroza2005@gmail.com" className="group inline-flex items-center gap-3 rounded-full bg-[#D2FF00] px-6 py-4 text-sm font-bold text-black transition-all duration-200 hover:bg-white hover:shadow-[0_0_40px_-8px_#D2FF00]"><Mail className="h-4 w-4" /> rizkyroza2005@gmail.com <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></a></Reveal>
         </div>
-
-        {/* Social Proof */}
-        <div className="mt-12 pt-8 border-t border-[#333333]">
-          <p className="text-gray-400 font-bold mb-4 text-sm uppercase tracking-wide">
-            Find me on:
-          </p>
-          <div className="cta-social-btn-container flex gap-3 sm:gap-4 justify-center flex-wrap" style={{ opacity: 1 }}>
-            {[
-              { name: 'GitHub', icon: Github, url: 'https://github.com/RizkyRR27' },
-              { name: 'LinkedIn', icon: Linkedin, url: 'www.linkedin.com/in/rizkyrozarahim270505' },
-              { name: 'Instagram', icon: Instagram, url: 'https://instagram.com/rizkyroza.r_' },
-              { name: 'Email', icon: Mail, url: 'mailto:rizkyroza2005@gmail.com' }
-            ].map(platform => {
-              const Icon = platform.icon;
-              return (
-                <a
-                  key={platform.name}
-                  href={platform.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="cta-social-btn flex items-center gap-2 px-4 py-2 bg-transparent hover:bg-[#333333] border border-[#555555] rounded text-gray-300 hover:text-white transition-colors"
-                >
-                  <Icon className="w-4 h-4" />
-                  <span className="font-medium text-sm">{platform.name}</span>
-                </a>
-              );
-            })}
+        <div aria-hidden className="marquee overflow-hidden border-b border-[#27272a] py-6">
+          <div className="animate-marquee-slow flex w-max whitespace-nowrap">
+            {[0, 1, 2, 3].map((i) => (
+              <span key={i} className="display px-6 text-[clamp(3rem,8vw,7rem)] text-transparent [-webkit-text-stroke:1px_#3f3f46]">Driven by precision - Built for speed -</span>
+            ))}
           </div>
         </div>
-
+        <Reveal dir="fade" delay={100} className="flex flex-col justify-between gap-5 py-6 md:flex-row md:items-center"><Link href="/" className="display text-2xl">RR<span className="text-[#D2FF00]">R</span></Link><div className="flex flex-wrap gap-5 mono text-[10px] uppercase tracking-widest text-zinc-500">{socials.map(({ name, icon: Icon, url }) => <a key={name} href={url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 transition-colors hover:text-[#D2FF00]"><Icon className="h-3.5 w-3.5" />{name}</a>)}</div><p className="mono text-[10px] uppercase tracking-widest text-zinc-600">© 2026 / Rizky Roza Rahim</p></Reveal>
       </div>
-    </section>
+    </footer>
   );
 }

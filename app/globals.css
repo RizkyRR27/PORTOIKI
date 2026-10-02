@@ -4,34 +4,27 @@
 
 :root {
   color-scheme: dark;
-  --bg-base: #141414;
+  --bg-base: #111112;
   --text-main: #ffffff;
-  --text-muted: #808080;
-  --border-color: #333333;
-  --grid-color: rgba(255, 255, 255, 0.05);
+  --text-muted: #a1a1aa;
+  --border-color: #27272a;
+  --volt: #D2FF00;
+  --volt-dim: #b8e000;
 
-  /* Netflix accents */
-  --netflix-red: #E50914;
-  --netflix-red-hover: #F40612;
-  --netflix-dark: #141414;
-  --netflix-light: #E5E5E5;
-
-  --font-sans: 'Inter', var(--font-plus-jakarta), sans-serif;
-  --font-display: 'Helvetica Neue', var(--font-outfit), 'Inter', sans-serif;
-}
-
-.dark {
-  color-scheme: dark;
-  --bg-base: #141414;
-  --text-main: #ffffff;
-  --border-color: #333333;
+  --font-sans: var(--font-plus-jakarta), 'Inter', sans-serif;
+  --font-display: var(--font-outfit), 'Helvetica Neue', sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
 }
 
 @theme inline {
   --color-background: var(--bg-base);
   --color-foreground: var(--text-main);
+  --color-obsidian: #111112;
+  --color-volt: #D2FF00;
+  --color-line: #27272a;
   --font-sans: var(--font-sans);
   --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
 }
 
 body {
@@ -40,89 +33,61 @@ body {
   font-family: var(--font-sans);
   line-height: 1.6;
   overflow-x: hidden;
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Netflix Card */
-.brutal-card {
-  border-radius: 4px;
-  background-color: #181818;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  overflow: hidden;
-}
-
-.brutal-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-  z-index: 10;
-}
-
-/* Netflix Button */
-.brutal-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-  font-weight: 600;
-  padding: 0.5rem 1.5rem;
-  transition: all 0.2s ease;
-  cursor: pointer;
-  background-color: var(--netflix-red);
-  color: white;
-  border: none;
-}
-
-.brutal-btn:hover {
-  background-color: var(--netflix-red-hover);
-  transform: scale(1.05);
-}
-
-.brutal-btn:active {
-  transform: scale(0.95);
-}
-
-/* Text Selection */
 ::selection {
-  background: var(--netflix-red);
-  color: white;
+  background: var(--volt);
+  color: #000;
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 14px;
-  height: 14px;
+/* Grain overlay */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
 }
 
-::-webkit-scrollbar-track {
-  background: var(--bg-base);
+/* Display type */
+.display {
+  font-family: var(--font-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  line-height: 0.88;
 }
 
-::-webkit-scrollbar-thumb {
-  background: #333;
-  border-radius: 10px;
+.mono {
+  font-family: var(--font-mono);
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-
-/* Marquee Animation */
+/* Marquee */
 @keyframes marquee {
-  0% {
-    transform: translateX(0%);
-  }
-
-  100% {
-    transform: translateX(-50%);
-  }
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 
 .animate-marquee {
-  display: inline-block;
-  animation: marquee 12s linear infinite;
+  animation: marquee 28s linear infinite;
 }
 
-/* General Animations */
+.animate-marquee-slow {
+  animation: marquee 50s linear infinite;
+}
+
+.marquee:hover .animate-marquee,
+.marquee:hover .animate-marquee-slow {
+  animation-play-state: paused;
+}
+
+/* Fast easing helper */
+.ease-race {
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* General Animations (used by inner pages) */
 .animate-fadeInUp {
   animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
@@ -136,87 +101,82 @@ body {
 }
 
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-30px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes zoomIn {
-  from {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Page transition (opacity only: a transform here would trap position:fixed modals) */
+@keyframes pageIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-pageIn {
+  animation: pageIn 0.35s ease-out;
+}
+
+/* Scroll reveal (<Reveal>). Hidden state only when JS runs, so no-JS stays visible. */
+@media (scripting: enabled) {
+  .reveal {
     opacity: 0;
-    transform: scale(0.95);
+    transition:
+      opacity var(--rv-dur, 700ms) cubic-bezier(0.16, 1, 0.3, 1) var(--rv-delay, 0ms),
+      transform var(--rv-dur, 700ms) cubic-bezier(0.16, 1, 0.3, 1) var(--rv-delay, 0ms);
   }
+  .reveal[data-dir='up'] { transform: translate3d(0, var(--rv-dist), 0); }
+  .reveal[data-dir='down'] { transform: translate3d(0, calc(var(--rv-dist) * -1), 0); }
+  .reveal[data-dir='left'] { transform: translate3d(calc(var(--rv-dist) * -1), 0, 0); }
+  .reveal[data-dir='right'] { transform: translate3d(var(--rv-dist), 0, 0); }
+  .reveal[data-dir='scale'] { transform: scale(0.94); }
 
-  to {
+  .reveal[data-dir='mask'] {
     opacity: 1;
-    transform: scale(1);
+    overflow: hidden;
+    padding-bottom: 0.08em;
+    margin-bottom: -0.08em;
   }
-}
-
-/* Glitch Text Effect */
-.glitch-text {
-  position: relative;
-}
-
-.glitch-text::before,
-.glitch-text::after {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: var(--bg-base);
-}
-
-.glitch-text::before {
-  left: 2px;
-  text-shadow: -2px 0 var(--neo-cyan);
-  clip: rect(44px, 450px, 56px, 0);
-  animation: glitch-anim 5s infinite linear alternate-reverse;
-}
-
-.glitch-text::after {
-  left: -2px;
-  text-shadow: -2px 0 var(--neo-pink), 0 2px var(--neo-cyan);
-  clip: rect(85px, 450px, 140px, 0);
-  animation: glitch-anim2 5s infinite linear alternate-reverse;
-}
-
-@keyframes glitch-anim {
-  0% {
-    clip: rect(15px, 9999px, 66px, 0);
+  .reveal[data-dir='mask'] > * {
+    transform: translate3d(0, 110%, 0);
+    transition: transform var(--rv-dur, 700ms) cubic-bezier(0.16, 1, 0.3, 1) var(--rv-delay, 0ms);
   }
 
-  100% {
-    clip: rect(34px, 9999px, 55px, 0);
+  /* transform: none (not translate(0)) so fixed-position descendants are not trapped */
+  .reveal[data-in] { opacity: 1; transform: none; }
+  .reveal[data-dir='mask'][data-in] > * { transform: none; }
+
+  /* Bars grow when their Reveal ancestor enters view */
+  .bar-grow {
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 1100ms cubic-bezier(0.16, 1, 0.3, 1) 250ms;
   }
+  .reveal[data-in] .bar-grow { transform: none; }
 }
 
-@keyframes glitch-anim2 {
-  0% {
-    clip: rect(70px, 9999px, 105px, 0);
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-marquee-slow,
+  .animate-fadeInUp,
+  .animate-fadeInDown,
+  .animate-zoomIn,
+  .animate-pageIn {
+    animation: none;
   }
-
-  100% {
-    clip: rect(12px, 9999px, 85px, 0);
+  .reveal,
+  .reveal > *,
+  .bar-grow {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }

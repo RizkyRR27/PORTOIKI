@@ -1,177 +1,168 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
-import { FileText, Image, ZoomIn, X, Download, Terminal, Award } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import Reveal from '@/components/Reveal';
+import { FileText, Image as ImageIcon, ZoomIn, X, Download, Award, CandlestickChart } from 'lucide-react';
+
+type Category = 'Sports' | 'academic' | 'Portofolio';
 
 type Item = {
   id: string;
   title: string;
   type: 'image' | 'pdf';
   url: string;
-  category: 'karate' | 'academic';
+  category: Category;
 };
 
+const items: Item[] = [
+  { id: 'jpg-1', title: 'Sertifikat Karate 1', type: 'image', url: '/sertif/karate1.jpg', category: 'Sports' },
+  { id: 'jpg-2', title: 'Sertifikat Karate 2', type: 'image', url: '/sertif/karate2.jpg', category: 'Sports' },
+  { id: 'pdf-1', title: 'Dokumen Penghargaan 1', type: 'pdf', url: '/sertif/11.pdf', category: 'academic' },
+  { id: 'pdf-2', title: 'Dokumen Penghargaan 2', type: 'pdf', url: '/sertif/22.pdf', category: 'academic' },
+  { id: 'pdf-3', title: 'Dokumen Penghargaan 3', type: 'pdf', url: '/sertif/33.pdf', category: 'academic' },
+  { id: 'pdf-4', title: 'Dokumen Penghargaan 4', type: 'pdf', url: '/sertif/44.pdf', category: 'academic' },
+];
+
+const categories: { id: 'all' | Category; label: string; icon: typeof Award }[] = [
+  { id: 'all', label: 'All Certificates', icon: Award },
+  { id: 'Sports', label: 'Sports', icon: ImageIcon },
+  { id: 'academic', label: 'Academic & Competence', icon: FileText },
+  { id: 'Portofolio', label: 'Portofolio', icon: CandlestickChart },
+];
+
+const FALLBACK = 'https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=800&auto=format&fit=crop&q=60';
+
 export default function PenghargaanGallery() {
-  const items: Item[] = [
-    { id: 'jpg-1', title: 'Sertifikat Karate 1', type: 'image', url: '/sertif/karate1.jpg', category: 'karate' },
-    { id: 'jpg-2', title: 'Sertifikat Karate 2', type: 'image', url: '/sertif/karate2.jpg', category: 'karate' },
-    { id: 'pdf-1', title: 'Dokumen Penghargaan 1', type: 'pdf', url: '/sertif/11.pdf', category: 'academic' },
-    { id: 'pdf-2', title: 'Dokumen Penghargaan 2', type: 'pdf', url: '/sertif/22.pdf', category: 'academic' },
-    { id: 'pdf-3', title: 'Dokumen Penghargaan 3', type: 'pdf', url: '/sertif/33.pdf', category: 'academic' },
-    { id: 'pdf-4', title: 'Dokumen Penghargaan 4', type: 'pdf', url: '/sertif/44.pdf', category: 'academic' },
-  ];
-
-  const [open, setOpen] = useState(false);
   const [active, setActive] = useState<Item | null>(null);
-  const [filterType, setFilterType] = useState<'all' | 'karate' | 'academic'>('all');
+  const [filterType, setFilterType] = useState<'all' | Category>('all');
 
-  const colors = ['bg-[#ffe600]', 'bg-[#ff3c88]', 'bg-[#00f0ff]', 'bg-[#00ff66]', 'bg-[#c250ff]', 'bg-[#ff5e00]'];
+  useEffect(() => {
+    document.body.style.overflow = active ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [active]);
 
   function openItem(item: Item) {
     setActive(item);
-    setOpen(true);
-    document.body.style.overflow = 'hidden';
   }
 
   function closeModal() {
-    setOpen(false);
     setActive(null);
-    document.body.style.overflow = '';
   }
 
-  const filteredItems = useMemo(() => {
-    return items.filter(it => filterType === 'all' || it.category === filterType);
-  }, [filterType]);
+  const filteredItems = items.filter((it) => filterType === 'all' || it.category === filterType);
 
   return (
-    <div className="relative z-10 font-sans text-white">
+    <div className="relative z-10">
       {/* Category selector */}
-      <div className="flex flex-wrap gap-3 justify-center mb-10">
-        {[
-          { id: 'all', label: 'All Certificates', icon: Award },
-          { id: 'karate', label: 'Sports (Karate)', icon: Image },
-          { id: 'academic', label: 'Academic & Competence', icon: FileText }
-        ].map(cat => {
-          const Icon = cat.icon;
-          return (
-            <button
-              key={cat.id}
-              onClick={() => setFilterType(cat.id as any)}
-              className={`px-5 py-2 rounded-full font-bold text-xs uppercase transition-colors cursor-pointer flex items-center gap-2 ${
-                filterType === cat.id 
-                  ? 'bg-[#E50914] text-white'
-                  : 'bg-[#222222] text-gray-300 hover:bg-[#333333] hover:text-white border border-[#333333]'
-              }`}
-            >
-              <Icon className="w-4 h-4" /> {cat.label}
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Grid of awards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {filteredItems.map((it, idx) => (
+      <div className="mb-10 flex flex-wrap gap-2">
+        {categories.map(({ id, label, icon: Icon }) => (
           <button
-            key={it.id}
-            onClick={() => openItem(it)}
-            className="text-left bg-[#181818] rounded-md overflow-hidden group flex flex-col shadow-2xl transition-all duration-300 hover:scale-105 hover:z-10 cursor-pointer"
-            aria-label={`Buka pratinjau ${it.title}`}
+            key={id}
+            onClick={() => setFilterType(id)}
+            className={`flex cursor-pointer items-center gap-2 rounded-full border px-5 py-2 mono text-[10px] font-bold uppercase tracking-widest transition-colors ${filterType === id
+              ? 'border-[#D2FF00] bg-[#D2FF00] text-black'
+              : 'border-[#27272a] text-zinc-400 hover:border-[#D2FF00] hover:text-[#D2FF00]'
+              }`}
           >
-            {/* Preview image or mock */}
-            <div className="relative overflow-hidden w-full aspect-video bg-gradient-to-br from-[#222222] to-[#111111]">
-              {it.type === 'image' ? (
-                <img 
-                  src={it.url} 
-                  alt={it.title} 
-                  className="w-full h-full object-cover filter contrast-110 saturate-110 transition-transform duration-500 group-hover:scale-110" 
-                  onError={(e) => {
-                    // Fallback
-                    e.currentTarget.src = "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=500&auto=format&fit=crop&q=60";
-                  }}
-                />
-              ) : (
-                <div className="w-full h-full flex flex-col items-center justify-center text-gray-400 group-hover:text-white transition-colors gap-2">
-                  <FileText className="w-10 h-10" />
-                  <span className="text-xs font-bold tracking-wider uppercase">Open PDF</span>
-                </div>
-              )}
-              {/* Overlay Gradient for Title */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80"></div>
-              
-              {/* Netflix N Logo */}
-              <div className="absolute top-3 left-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                <span className="text-[#E50914] text-xs font-black drop-shadow-lg">N</span>
-              </div>
-
-              {/* Hover Zoom Icon */}
-              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                <div className="bg-[#E50914] text-white rounded-full p-3 shadow-lg transform scale-50 group-hover:scale-100 transition-transform duration-300">
-                  <ZoomIn className="w-6 h-6" />
-                </div>
-              </div>
-
-              {/* Title overlay */}
-              <div className="absolute bottom-0 left-0 p-4 w-full">
-                <span className="text-[10px] font-bold uppercase text-[#E50914] tracking-wider mb-1 block">
-                  {it.type}
-                </span>
-                <h3 className="font-bold text-lg text-white truncate drop-shadow-md">
-                  {it.title}
-                </h3>
-              </div>
-            </div>
+            <Icon className="h-4 w-4" /> {label}
           </button>
         ))}
       </div>
 
+      {filteredItems.length === 0 && (
+        <p className="border border-dashed border-[#27272a] p-10 text-center mono text-xs uppercase tracking-widest text-zinc-500">
+          Belum ada item di kategori ini.
+        </p>
+      )}
+
+      {/* Grid of awards */}
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
+        {filteredItems.map((it, idx) => (
+          <Reveal key={it.id} dir="scale" delay={idx * 80} className="h-full">
+          <button
+            onClick={() => openItem(it)}
+            className="group flex h-full w-full cursor-pointer flex-col overflow-hidden border border-[#27272a] bg-[#151517] text-left transition-all duration-300 hover:border-[#D2FF00] hover:shadow-[0_0_40px_-12px_#D2FF00] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#D2FF00]"
+            aria-label={`Buka pratinjau ${it.title}`}
+          >
+            <div className="relative aspect-video w-full overflow-hidden bg-[#111112]">
+              {it.type === 'image' ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={it.url}
+                  alt={it.title}
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  onError={(e) => { e.currentTarget.src = FALLBACK; }}
+                />
+              ) : (
+                <div className="flex h-full w-full flex-col items-center justify-center gap-2 text-zinc-500 transition-colors group-hover:text-[#D2FF00]">
+                  <FileText className="h-10 w-10" />
+                  <span className="mono text-[10px] font-bold uppercase tracking-widest">Open PDF</span>
+                </div>
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+
+              <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity group-hover:opacity-100">
+                <div className="scale-50 rounded-full bg-[#D2FF00] p-3 text-black transition-transform duration-300 group-hover:scale-100">
+                  <ZoomIn className="h-6 w-6" />
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-end justify-between gap-3 p-5">
+              <div className="min-w-0">
+                <span className="mono mb-1 block text-[10px] font-bold uppercase tracking-[0.18em] text-[#D2FF00]">{it.type}</span>
+                <h3 className="display truncate text-xl">{it.title}</h3>
+              </div>
+              <span className="mono text-[10px] text-zinc-600">{String(idx + 1).padStart(2, '0')}</span>
+            </div>
+          </button>
+          </Reveal>
+        ))}
+      </div>
+
       {/* Modal Dialog Viewer */}
-      {open && active && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/95 backdrop-blur-sm p-4 md:p-6 animate-zoomIn">
-          <div className="max-w-5xl w-full max-h-[90vh] bg-[#141414] rounded-lg shadow-2xl flex flex-col text-white overflow-hidden border border-[#333333]">
-            
-            {/* Modal Header */}
-            <div className="flex justify-between items-center p-4 border-b border-[#333333] bg-[#181818]">
-              <h4 className="font-bold text-white text-lg uppercase flex items-center gap-2">
-                <Award className="w-5 h-5 text-[#E50914]" /> {active.title}
+      {active && (
+        <div className="fixed inset-0 z-[60] flex animate-zoomIn items-center justify-center bg-black/95 p-4 backdrop-blur-sm md:p-6">
+          <div className="flex max-h-[90vh] w-full max-w-5xl flex-col overflow-hidden border border-[#27272a] bg-[#111112] text-white">
+            <div className="flex items-center justify-between border-b border-[#27272a] bg-[#151517] p-4">
+              <h4 className="display flex items-center gap-2 text-lg">
+                <Award className="h-5 w-5 text-[#D2FF00]" /> {active.title}
               </h4>
-              <div className="flex items-center gap-3">
-                <a 
-                  href={active.url} 
-                  download 
-                  className="bg-[#222222] hover:bg-[#333333] text-white p-2 rounded transition-colors cursor-pointer"
+              <div className="flex items-center gap-2">
+                <a
+                  href={active.url}
+                  download
+                  className="border border-[#27272a] p-2 transition-colors hover:border-[#D2FF00] hover:text-[#D2FF00]"
                   title="Unduh Sertifikat"
                 >
-                  <Download className="w-5 h-5" />
+                  <Download className="h-5 w-5" />
                 </a>
-                <button 
-                  onClick={closeModal} 
-                  className="bg-transparent hover:bg-[#E50914] text-white px-4 py-2 rounded transition-colors font-bold text-sm uppercase cursor-pointer flex items-center gap-2"
+                <button
+                  onClick={closeModal}
+                  className="flex cursor-pointer items-center gap-2 bg-[#D2FF00] px-4 py-2 mono text-[10px] font-bold uppercase tracking-widest text-black transition-colors hover:bg-white"
                 >
-                  <X className="w-4 h-4" /> Close
+                  <X className="h-4 w-4" /> Close
                 </button>
               </div>
             </div>
 
-            {/* Modal Content */}
-            <div className="p-4 md:p-6 flex-grow overflow-auto bg-[#141414] flex items-center justify-center">
+            <div className="flex flex-grow items-center justify-center overflow-auto bg-[#111112] p-4 md:p-6">
               {active.type === 'image' ? (
-                <img 
-                  src={active.url} 
-                  alt={active.title} 
-                  className="w-auto max-h-[70vh] mx-auto rounded shadow-2xl" 
-                  onError={(e) => {
-                    e.currentTarget.src = "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=800&auto=format&fit=crop&q=60";
-                  }}
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={active.url}
+                  alt={active.title}
+                  className="mx-auto max-h-[70vh] w-auto"
+                  onError={(e) => { e.currentTarget.src = FALLBACK; }}
                 />
               ) : (
-                <iframe 
-                  src={active.url} 
-                  className="w-full h-[70vh] rounded shadow-2xl bg-white" 
+                <iframe
+                  src={active.url}
+                  className="h-[70vh] w-full bg-white"
                   title={active.title}
                   allow="fullscreen"
                   loading="lazy"
-                ></iframe>
+                />
               )}
             </div>
           </div>

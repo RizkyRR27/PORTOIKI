@@ -80,7 +80,10 @@ const CURVE_FUNCTIONS = {
   'ease-in-out': (p: number) => (p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2)
 };
 
-const mergeConfigs = (...configs: any[]) => configs.reduce((acc, c) => ({ ...acc, ...c }), {});
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type AnyConfig = Record<string, any>;
+
+const mergeConfigs = (...configs: AnyConfig[]): AnyConfig => configs.reduce((acc, c) => ({ ...acc, ...c }), {});
 
 const getGradientDirection = (position: string) =>
   (({
@@ -90,15 +93,15 @@ const getGradientDirection = (position: string) =>
     right: 'to right'
   } as { [key: string]: string })[position] || 'to bottom');
 
-const debounce = (fn: (...args: any[]) => void, wait: number) => {
+const debounce = (fn: (...args: unknown[]) => void, wait: number) => {
   let t: NodeJS.Timeout | number;
-  return (...a: any[]) => {
+  return (...a: unknown[]) => {
     clearTimeout(t as NodeJS.Timeout);
     t = setTimeout(() => fn(...a), wait);
   };
 };
 
-const useResponsiveDimension = (responsive: boolean, config: any, key: 'height' | 'width') => {
+const useResponsiveDimension = (responsive: boolean, config: AnyConfig, key: 'height' | 'width') => {
   const [value, setValue] = useState(config[key]);
   useEffect(() => {
     if (!responsive) return;
@@ -217,13 +220,13 @@ const GradualBlur: React.FC<GradualBlurProps> = (props) => {
     if (isVertical) {
       baseStyle.height = responsiveHeight;
       baseStyle.width = responsiveWidth || '100%';
-      (baseStyle as any)[config.position] = 0;
+      (baseStyle as Record<string, unknown>)[config.position] = 0;
       baseStyle.left = 0;
       baseStyle.right = 0;
     } else if (isHorizontal) {
       baseStyle.width = responsiveWidth || responsiveHeight;
       baseStyle.height = '100%';
-      (baseStyle as any)[config.position] = 0;
+      (baseStyle as Record<string, unknown>)[config.position] = 0;
       baseStyle.top = 0;
       baseStyle.bottom = 0;
     }

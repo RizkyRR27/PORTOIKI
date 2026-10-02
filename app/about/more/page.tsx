@@ -6,7 +6,7 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <div className="pt-32 px-6">
+    <div className="mx-auto max-w-[1600px] px-5 pt-32 md:px-10">
       <AboutMore />
     </div>
   );

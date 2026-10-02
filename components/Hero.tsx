@@ -1,199 +1,75 @@
 'use client';
 
 import Link from 'next/link';
-import ImageTrail from './ImageTrail';
-import { useEffect, useState, useRef } from 'react';
-import { ArrowRight, FileText, MapPin, Briefcase, Zap, Terminal, Info } from 'lucide-react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useGSAP } from '@gsap/react';
-
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
+import { ArrowDownRight, ArrowUpRight, MapPin, Zap } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import Reveal from '@/components/Reveal';
 
 export default function Hero() {
   const [typedText, setTypedText] = useState('');
-  const fullText = "Selamat Datang di Portofolio Iky, Senang rasanya anda berkunjung di website saya.";
+  const fullText = 'Mahasiswa Sistem Informasi Bisnis yang merancang pengalaman digital dengan presisi.';
 
   useEffect(() => {
     let index = 0;
-    const interval = setInterval(() => {
-      setTypedText(fullText.substring(0, index));
-      index++;
-      if (index > fullText.length) {
-        clearInterval(interval);
-      }
-    }, 45);
-    return () => clearInterval(interval);
+    const interval = window.setInterval(() => {
+      setTypedText(fullText.slice(0, index));
+      index += 1;
+      if (index > fullText.length) window.clearInterval(interval);
+    }, 28);
+    return () => window.clearInterval(interval);
   }, []);
 
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useGSAP(() => {
-    // Initial Load Animations
-    gsap.from('.available-sticker', {
-      scale: 0,
-      rotation: -30,
-      opacity: 0,
-      duration: 0.8,
-      ease: 'back.out(1.5)',
-    });
-
-    gsap.from('.hero-title-part', {
-      y: 80,
-      opacity: 0,
-      duration: 1,
-      stagger: 0.25,
-      ease: 'power4.out',
-      delay: 0.2,
-    });
-
-    gsap.from('.hero-terminal', {
-      y: 60,
-      scale: 0.96,
-      opacity: 0,
-      duration: 1,
-      ease: 'power3.out',
-      delay: 0.6,
-    });
-
-    gsap.from('.hero-badge', {
-      y: 20,
-      opacity: 0,
-      duration: 0.6,
-      stagger: 0.1,
-      ease: 'power2.out',
-      delay: 0.8,
-    });
-
-    gsap.from('.hero-cta-btn', {
-      y: 20,
-      opacity: 0,
-      duration: 0.6,
-      stagger: 0.15,
-      ease: 'power2.out',
-      delay: 1.1,
-    });
-
-    // Parallax Scroll Animations for Floating Shapes
-    gsap.to('.parallax-shape-1', {
-      scrollTrigger: {
-        trigger: '.hero-section',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: 1,
-      },
-      y: -180,
-      rotation: 120,
-      ease: 'none',
-    });
-
-    gsap.to('.parallax-shape-2', {
-      scrollTrigger: {
-        trigger: '.hero-section',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: 1,
-      },
-      y: -240,
-      x: 60,
-      rotation: -180,
-      ease: 'none',
-    });
-
-    gsap.to('.parallax-shape-3', {
-      scrollTrigger: {
-        trigger: '.hero-section',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: 1,
-      },
-      y: 180,
-      rotation: 90,
-      ease: 'none',
-    });
-  }, { scope: containerRef });
-
   return (
-    <section ref={containerRef} className="hero-section min-h-[90vh] flex flex-row items-center px-6 md:px-16 relative overflow-hidden bg-[#141414] text-white">
-      {/* Background Image/Gradient Overlay */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-r from-[#141414] via-[#141414]/80 to-transparent z-10" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent z-10" />
-        {/* Placeholder for a cinematic background, we just use a dark subtle pattern/color for now since no image is provided */}
-        <div className="absolute inset-0 bg-neutral-900 opacity-50" />
-      </div>
+    <section className="relative overflow-hidden border-b border-[#27272a] px-5 pb-12 pt-28 md:px-10 md:pb-16 md:pt-36">
+      <div className="pointer-events-none absolute inset-0 opacity-40 [background-image:linear-gradient(rgba(255,255,255,.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.035)_1px,transparent_1px)] [background-size:64px_64px]" />
+      <div className="pointer-events-none absolute -right-32 top-24 h-96 w-96 rounded-full bg-[#D2FF00]/10 blur-[120px]" />
 
-      {/* Left: Hero Content */}
-      <div className="relative z-20 w-full max-w-xl flex flex-col items-start mt-20 flex-shrink-0">
-        {/* Top Badge like "N SERIES" */}
-        <div className="hero-badge flex items-center gap-2 mb-4 font-sans font-bold text-sm tracking-widest text-gray-300">
-          <span className="text-[#E50914] text-xl">R</span> ORIGINAL PORTFOLIO
+      <div className="relative z-10 mx-auto grid max-w-[1600px] gap-12 lg:grid-cols-[1.35fr_.65fr] lg:items-end">
+        <div>
+          <Reveal dir="down" distance={16}>
+            <div className="mono mb-7 flex items-center gap-3 text-[10px] uppercase tracking-[0.22em] text-zinc-400">
+              <span className="h-2 w-2 animate-pulse rounded-full bg-[#D2FF00]" />
+              Available for selected opportunities / 2026
+            </div>
+          </Reveal>
+          <h1 className="display max-w-5xl text-[clamp(4rem,12vw,11.5rem)] text-white">
+            <Reveal dir="mask" delay={100}><span className="block">Rizky</span></Reveal>
+            <Reveal dir="mask" delay={220}><span className="block text-[#D2FF00]">Roza</span></Reveal>
+            <Reveal dir="mask" delay={340}><span className="block">Rahim</span></Reveal>
+          </h1>
+          <Reveal delay={500} className="mt-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <div className="max-w-lg">
+              <p className="mono mb-3 text-xs uppercase tracking-[0.2em] text-[#D2FF00]">Driven by precision / Built for speed</p>
+              <p className="min-h-12 max-w-md text-sm leading-7 text-zinc-400 md:text-base">
+                {typedText}<span className="ml-1 inline-block h-4 w-px animate-pulse bg-[#D2FF00] align-middle" />
+              </p>
+            </div>
+            <div className="flex shrink-0 gap-3">
+              <Link href="/project" className="group inline-flex items-center gap-2 rounded-full bg-[#D2FF00] px-5 py-3 text-sm font-bold text-black transition-all duration-200 hover:bg-white hover:shadow-[0_0_35px_-8px_#D2FF00]">
+                View projects <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </Link>
+              <Link href="/HUBi" className="inline-flex items-center gap-2 rounded-full border border-[#27272a] px-5 py-3 text-sm font-bold text-white transition-colors hover:border-[#D2FF00] hover:text-[#D2FF00]">
+                Contact
+              </Link>
+            </div>
+          </Reveal>
         </div>
 
-        {/* Main Header */}
-        <h1 className="hero-title-part text-5xl sm:text-7xl md:text-8xl font-black tracking-tight leading-none text-left mb-4 font-sans drop-shadow-lg">
-          RIZKY ROZA RAHIM
-        </h1>
-
-        {/* Sub-Hero Description */}
-        <p className="hero-terminal text-lg md:text-xl font-medium leading-relaxed text-gray-200 max-w-2xl mb-8 font-sans drop-shadow-md">
-          {typedText}
-          <span className="animate-pulse bg-[#E50914] text-transparent inline-block w-1.5 h-5 ml-1 align-middle">|</span>
-        </p>
-
-        {/* Info Badges (Like Movie tags: 2026 | Developer | Action) */}
-        <div className="hero-badge flex flex-wrap gap-3 items-center mb-8 font-sans font-bold text-sm text-gray-400">
-          <span className="flex items-center gap-1"><MapPin className="w-4 h-4" /> Jakarta, Bekasi, Malang, Bali</span>
-          <span className="flex items-center gap-1"><Zap className="w-4 h-4" /> D4 Sistem Informasi Bisnis</span>
-        </div>
-
-        {/* Call to Actions */}
-        <div className="flex gap-4 font-sans">
-          <Link
-            href="/project"
-            className="hero-cta-btn px-6 py-2.5 bg-white text-black rounded-md text-lg font-bold flex items-center gap-2 hover:bg-neutral-300 transition-colors"
-          >
-            <div className="w-0 h-0 border-t-[8px] border-t-transparent border-l-[12px] border-l-black border-b-[8px] border-b-transparent ml-1"></div>
-            Lihat Projek
-          </Link>
-
-          <Link
-            href="/about"
-            className="hero-cta-btn px-6 py-2.5 bg-gray-500/50 text-white rounded-md text-lg font-bold flex items-center gap-2 hover:bg-gray-500/70 transition-colors backdrop-blur-sm"
-          >
-            <Info className="w-6 h-6" />
-            Tentang Saya
-          </Link>
-        </div>
-      </div>
-
-      {/* Right: ImageTrail Interactive Area */}
-      <div className="relative z-20 flex-1 hidden md:flex items-center justify-center h-[90vh] ml-8">
-        <div className="w-full h-full" style={{ position: 'relative', overflow: 'hidden' }}>
-          <ImageTrail
-            items={[
-              '/images/1.jpg',
-              '/images/2.jpg',
-              '/images/3.jpg',
-              '/images/4.jpg',
-              '/images/5.jpg',
-              'https://picsum.photos/id/67/300/300',
-              'https://picsum.photos/id/96/300/300',
-              'https://picsum.photos/id/103/300/300',
-              'https://picsum.photos/id/106/300/300',
-              'https://picsum.photos/id/119/300/300',
-            ]}
-            variant={1}
-          />
-          {/* Hint overlay */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <p className="text-gray-500 text-sm font-sans tracking-widest uppercase select-none opacity-60">
-              ✦ Gerakkan kursor di sini
-            </p>
+        <Reveal dir="left" delay={450} distance={48} className="relative hidden min-h-[310px] border border-[#27272a] bg-[#151517] p-5 lg:block">
+          <div className="flex items-center justify-between border-b border-[#27272a] pb-4 mono text-[10px] uppercase tracking-widest text-zinc-500">
+            <span>Performance log / 001</span><span className="text-[#D2FF00]">Live</span>
           </div>
-        </div>
+          <div className="absolute inset-x-5 top-24 h-24 opacity-80 [background-image:linear-gradient(135deg,transparent_0_8%,#D2FF00_8%_9%,transparent_9%_18%,#D2FF00_18%_19%,transparent_19%_31%,#D2FF00_31%_32%,transparent_32%_45%,#D2FF00_45%_46%,transparent_46%_100%)]" />
+          <div className="absolute bottom-5 left-5 right-5 grid grid-cols-2 gap-4 border-t border-[#27272a] pt-4">
+            <div><p className="mono text-[10px] uppercase tracking-widest text-zinc-500">Location</p><p className="mt-1 flex items-center gap-1 text-sm"><MapPin className="h-3.5 w-3.5 text-[#D2FF00]" /> Indonesia</p></div>
+            <div><p className="mono text-[10px] uppercase tracking-widest text-zinc-500">Focus</p><p className="mt-1 flex items-center gap-1 text-sm"><Zap className="h-3.5 w-3.5 text-[#D2FF00]" /> Quality & UI</p></div>
+          </div>
+          <span className="absolute right-5 top-24 mono text-[10px] text-zinc-500">98.4%</span>
+        </Reveal>
+      </div>
+
+      <div className="relative z-10 mx-auto mt-16 flex max-w-[1600px] items-center justify-between border-t border-[#27272a] pt-4 mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">
+        <span>Scroll to explore</span><ArrowDownRight className="h-4 w-4 text-[#D2FF00]" />
       </div>
     </section>
   );
